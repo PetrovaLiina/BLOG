@@ -1,0 +1,33 @@
+{% extends 'base.html'%}
+
+{% block title %}
+
+{{ post_item.title }}::{{ block.super }}
+
+{% endblock %}
+
+{% block sidebar %}
+          {% include 'inc/_sidebar.html' %}
+{% endblock %}
+
+{% block post %}
+        <div class="card mb-3">
+          <div class="card-header">
+            Категория: <a href="{{ post_item.category.get_absolute_url }}"> {{ post_item.category }}</a>
+          </div>
+          <div class="card-body">
+              <h5 class="card-title">{{post_item.title}}</h5>
+                  {% if post_item.photo %}
+                      <img src="{{ post_item.photo.url }}" alt="" width="350" class="float-left mr-3">
+                  {% else %}
+                      <img src="https://picsum.photos/id/1060/350/235/?blur=2" alt="" class="float-left mr-3">
+                  {% endif %}
+
+                      <p class="card-text">{{ post_item.post|linebreaks }}</p>
+          </div>
+          <div class="card-footer text-muted">
+            {{ post_item.created_at|date:"Y-m-d H:i:s"}}
+          </div>
+        </div>
+{% endblock %}
+
